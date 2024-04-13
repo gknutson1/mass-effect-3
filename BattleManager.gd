@@ -44,28 +44,34 @@ func start_battle():
 	pass
 	
 func can_battle() -> bool:
+	print("Can battle!")
 	return team1.size() > 0 && team2.size() > 0
 	
 func fight_round():
-	var attacker1 = team1[0]
-	var attacker2 = team2[0]
+	var attacker1_obj = team1[0]
+	var attacker2_obj = team2[0]
 	
-	if !(attacker1 is Character && attacker2 is Character):
-		return
+	var attacker1 = attacker1_obj.get_node("Character") as Character
+	var attacker2 = attacker2_obj.get_node("Character") as Character
 		
+	print("Damage!")
 	attacker1.health -= attacker2.attack
 	attacker2.health -= attacker1.attack
 	
-	for character in team1:
-		character.execute_abilities(self)
-		
-	for character in team2:
-		character.execute_abilities(self)
+	#for character in team1:
+		#character.execute_abilities(self)
+		#
+	#for character in team2:
+		#character.execute_abilities(self)
 	
-	team1.filter(is_alive)
-	team2.filter(is_alive)
+	var kill1 = team1.filter(is_alive)
+	var kill2 = team2.filter(is_alive)
+	
+	var kill = kill1 + kill2
+	
+	
 	
 	pass
 
-func is_alive(character) -> bool:
+func is_alive(character: Character) -> bool:
 	return character.health > 0
