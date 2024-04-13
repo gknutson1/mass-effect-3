@@ -1,4 +1,4 @@
-extends Object
+extends Node
 
 class_name Character
 
@@ -10,8 +10,10 @@ var attack: int
 var defense: int
 var char_class: class_options
 
-@onready var health_label = get_node("../HealthLabel")
-@onready var attack_label = get_node("../AttackLabel")
+@onready 
+var health_label = get_node("../HealthLabel")
+@onready 
+var attack_label = get_node("../AttackLabel")
 
 func _init(char_name: String, char_class: class_options, health: int, attack: int, defense: int):
 	self.char_name = char_name
