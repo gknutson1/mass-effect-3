@@ -8,6 +8,7 @@ var char_name: String
 var health: int
 var attack: int
 var defense: int
+var abilities = [archerability]
 var char_class: class_options
 
 @onready 
@@ -36,3 +37,8 @@ func _process(delta):
 func update_labels():
 	health_label.text = str(health)
 	attack_label.text = str(attack)
+	
+func executeAbility(battle: BattleManager):
+	for i in range(abilities.size()):
+		abilities[i].ExecuteAbility(battle)
+	
