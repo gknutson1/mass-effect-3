@@ -2,6 +2,7 @@ extends Node
 
 class_name Character
 
+var char_name = ""
 var health = 1;
 var attack = 0;
 var defense = 0;
