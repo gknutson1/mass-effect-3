@@ -15,25 +15,28 @@ var character_asset = load("res://char.tscn")
 func _ready():
 	var char1 = character_asset.instantiate()
 	var char2 = character_asset.instantiate()
+	var char3 = character_asset.instantiate()
+	var char4 = character_asset.instantiate()
 	
 	add_child(char1)
 	add_child(char2)
+	add_child(char3)
+	add_child(char4)
 	
-	team1 = [char1]
-	team2 = [char2]
+	team2 = [char1]
+	team1 = [char2, char3, char4]
+	
+	start_battle()
 	pass
 
 func start_battle():
-	print(team1.size())
 	for i in range(team1.size()):
-		print("Ping!")
 		var character = team1[i]
-		character.position = Vector2((i + 1) * 100, 100)
+		character.position = Vector2((i + 1) * 200, 0)
 		
-	for i in range(team1.size()):
-		print("Pong!")
-		var character = team1[i]
-		character.position = Vector2((i + 1) * 100, 300)
+	for i in range(team2.size()):
+		var character = team2[i]
+		character.position = Vector2((i + 1) * -200, 0)
 		
 	while can_battle():
 		fight_round()
