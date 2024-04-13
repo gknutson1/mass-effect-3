@@ -3,8 +3,8 @@ extends Node
 class_name Character
 
 var char_name = ""
-var health = 1;
-var attack = 0;
+var health = 3;
+var attack = 1;
 var defense = 0;
 
 @onready var health_label = get_node("../HealthLabel")
