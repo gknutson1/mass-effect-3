@@ -1,5 +1,9 @@
-extends Object
+extends Node
 class_name ability
 
-func ExecuteAbility(battle: BattleManager):
+var target = []
+func createTarget(team: Array):
+	pass 
+func ExecuteAbility(team: Array):
 	pass
+
