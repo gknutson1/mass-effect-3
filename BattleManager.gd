@@ -13,47 +13,43 @@ var team2 = []
 var character_asset = load("res://char.tscn")
 
 func _ready():
-	var char1 = character_asset.instantiate()
-	var char2 = character_asset.instantiate()
-	var char3 = character_asset.instantiate()
-	var char4 = character_asset.instantiate()
+	# Create characters
+	team1.append(create_character("Knight1", Character.class_options.KNIGHT, 120, 20, 10))
+	team1.append(create_character("Mage1", Character.class_options.MAGE, 80, 25, 5))
+	team1.append(create_character("Archer1", Character.class_options.ARCHER, 100, 15, 5))
 	
-	add_child(char1)
-	add_child(char2)
-	add_child(char3)
-	add_child(char4)
+	team2.append(create_character("Archer2", Character.class_options.ARCHER, 100, 15, 5))
 	
-	team2 = [char1]
-	team1 = [char2, char3, char4]
-	
+	# Start battle
 	start_battle()
-	pass
+	
+func create_character(name: String, class_option: Character.class_options, hp: int, atk: int, def: int) -> Node:
+	var new_char = character_asset.instantiate()
+	add_child(new_char)
+	new_char.initialize(name, class_option, hp, atk, def)
+	return new_char
 
 func start_battle():
+	# Position characters on the battlefield
 	for i in range(team1.size()):
-		var character = team1[i]
-		character.position = Vector2((i + 1) * 200, 0)
+		team1[i].position = Vector2((i + 1) * 200, 100)
 		
 	for i in range(team2.size()):
-		var character = team2[i]
-		character.position = Vector2((i + 1) * -200, 0)
+		team2[i].position = Vector2((i + 1) * -200, 100)
 		
+	# Simulate rounds
 	while can_battle():
 		fight_round()
 		await get_tree().create_timer(0.4).timeout
-	pass
 	
 func can_battle() -> bool:
 	print("Can battle!")
 	return team1.size() > 0 && team2.size() > 0
 	
 func fight_round():
-	var attacker1_obj = team1[0]
-	var attacker2_obj = team2[0]
-	
-	var attacker1 = attacker1_obj.get_node("Character") as Character
-	var attacker2 = attacker2_obj.get_node("Character") as Character
-		
+	var attacker1 = team1[0] as Character
+	var attacker2 = team2[0] as Character
+
 	print("Damage!")
 	attacker1.health -= attacker2.attack
 	attacker2.health -= attacker1.attack
