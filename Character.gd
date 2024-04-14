@@ -1,4 +1,4 @@
-extends Node
+extends Node2D  # Assuming your character extends from Node2D for position manipulation
 
 class_name Character
 
@@ -9,7 +9,11 @@ var health: int
 var attack: int
 var defense: int
 var char_class: class_options
-var abilities = [archerability]
+var target_position: Vector2
+var busy: bool = false
+var velocity: Vector2 = Vector2.ZERO  # Physics property
+var dead: bool = false  # State check if dead
+var gravity: float = 500.0  # Gravity strength
 
 @onready 
 var health_label = get_node("HealthLabel")
@@ -29,18 +33,32 @@ func update_labels():
 		health_label.text = str(health)
 		attack_label.text = str(attack)
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	update_labels()
-	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	update_labels()
-	pass
+	if health <= 0:
+		dead = true
+	if not dead:
+		move_to_target(delta)
+		busy_check()
+	else:
+		handle_death_physics(delta)
 
-func execute_abilities(battle: BattleManager):
-	for cAbility in abilities:
-		cAbility.createTarget(battle)
-		cAbility.ExecuteAbility(battle)
+func move_to_target(delta):
+	self.position = lerp(self.position, target_position, 0.2)
+
+func busy_check():
+	busy = self.position != target_position or health <= 0
+
+func kill():
+	if not dead:
+		dead = true
+		velocity = Vector2(randf_range(-100, 100), randf_range(-300, -100))  # Random initial upward velocity
+
+func handle_death_physics(delta):
+	velocity.y += gravity * delta
+	position += velocity * delta
+	if position.y > get_viewport_rect().size.y + 100:  # Check if out of screen
+		queue_free()  # Remove the node from the scene
