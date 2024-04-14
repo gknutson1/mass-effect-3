@@ -3,7 +3,7 @@ class_name ability
 
 func initialize():
 	pass
-func createTarget(battle: BattleManager):
+func createTarget(battle: BattleManager,team: int):
 	pass 
-func ExecuteAbility(battle: BattleManager):
+func ExecuteAbility(battle: BattleManager,team: int):
 	pass

@@ -22,6 +22,8 @@ var abilities = []
 var health_label = get_node("HealthLabel")
 @onready 
 var attack_label = get_node("AttackLabel")
+@onready 
+var attack_label = get_node("Sprite2D")
 
 func initialize(char_name: String, char_class: class_options, health: int, attack: int, defense: int, cost: int = 0):
 	self.cost = cost
@@ -31,6 +33,19 @@ func initialize(char_name: String, char_class: class_options, health: int, attac
 	self.attack = attack
 	self.defense = defense
 	self.abilities.append(ability_archer.new())
+	#char19 is archer
+	#char7 is knight
+	#char22 is mage
+	#char47 is bard
+	#char49 is barbarian
+	
+	#char46 is bear
+	#char44 is tiger
+	#char35 
+	if(char_class == class_options.MAGE):
+		self.abilities.append(ability_magic.new())
+	if(char_class == class_options.ARCHER):
+		self.abilities.append(ability_archer.new())
 	update_labels()
 	return self
 
@@ -84,8 +99,7 @@ func deal_damage(target):
 	if target_character.health <= 0:
 		char_state = state.IDLE
 		
-func execute_abilities(battle: BattleManager):
+func execute_abilities(battle: BattleManager, team: int):
 	for cAbility in abilities:
-		print("test")
-		cAbility.createTarget(battle)
-		cAbility.ExecuteAbility(battle)
+		cAbility.createTarget(battle,team)
+		cAbility.ExecuteAbility(battle, team)
