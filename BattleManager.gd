@@ -55,12 +55,11 @@ func can_battle() -> bool:
 
 func are_characters_busy() -> bool:
 	for character in team1:
-		if character.busy:
+		if character.char_state != Character.state.IDLE:
 			return true
 			
-	for character in team1:
-		
-		if character.busy:
+	for character in team2:
+		if character.char_state != Character.state.IDLE:
 			return true
 			
 	return false
@@ -68,10 +67,9 @@ func are_characters_busy() -> bool:
 func fight_round():
 	var attacker1 = team1[0] as Character
 	var attacker2 = team2[0] as Character
-
-	print("Damage!")
-	attacker1.health -= attacker2.attack
-	attacker2.health -= attacker1.attack
+	
+	attacker1.set_attack_target(team2[0])
+	attacker2.set_attack_target(team1[0])
 	
 	#NOTE: We will have to repeat. Character abilities may trigger character abilities. Can't loop once.
 	#for character in team1:
