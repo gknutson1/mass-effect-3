@@ -69,5 +69,12 @@ func set_attack_target(target: Node2D):
 func attack_animation(delta):
 	self.position = lerp(self.position, attack_target.position, 0.5)
 	if (self.position - attack_target.position).length() < 50:
+		deal_damage(attack_target)
 		char_state = state.IDLE
 	pass
+
+func deal_damage(target):
+	var target_character = target as Character
+	target_character.health -= self.attack
+	if target_character.health <= 0:
+		char_state = state.IDLE
