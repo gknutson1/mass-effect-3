@@ -22,6 +22,8 @@ var abilities = []
 var health_label = get_node("HealthLabel")
 @onready 
 var attack_label = get_node("AttackLabel")
+@onready 
+var attack_label = get_node("Sprite2D")
 
 func initialize(char_name: String, char_class: class_options, health: int, attack: int, defense: int, cost: int = 0):
 	self.cost = cost
@@ -31,6 +33,15 @@ func initialize(char_name: String, char_class: class_options, health: int, attac
 	self.attack = attack
 	self.defense = defense
 	self.abilities.append(ability_archer.new())
+	#char19 is archer
+	#char7 is knight
+	#char22 is mage
+	#char47 is bard
+	#char49 is barbarian
+	
+	#char46 is bear
+	#char44 is tiger
+	#char35 
 	update_labels()
 	return self
 
