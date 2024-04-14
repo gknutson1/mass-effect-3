@@ -14,6 +14,8 @@ var busy: bool = false
 var velocity: Vector2 = Vector2.ZERO  # Physics property
 var dead: bool = false  # State check if dead
 var gravity: float = 500.0  # Gravity strength
+var abilities = []
+var archer: ability_archer
 
 @onready 
 var health_label = get_node("HealthLabel")
@@ -26,6 +28,7 @@ func initialize(char_name: String, char_class: class_options, health: int, attac
 	self.health = health
 	self.attack = attack
 	self.defense = defense
+	archer = ability_archer.new()
 	update_labels()
 
 func update_labels():
@@ -62,3 +65,6 @@ func handle_death_physics(delta):
 	position += velocity * delta
 	if position.y > get_viewport_rect().size.y + 100:  # Check if out of screen
 		queue_free()  # Remove the node from the scene
+func execute_abilities(battle: BattleManager):
+	archer.createTarget(battle)
+	archer.ExecuteAbility(battle)

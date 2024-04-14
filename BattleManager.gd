@@ -74,11 +74,11 @@ func fight_round():
 	attacker2.health -= attacker1.attack
 	
 	#NOTE: We will have to repeat. Character abilities may trigger character abilities. Can't loop once.
-	#for character in team1:
-		#character.execute_abilities(self)
+	for character in team1:
+		character.execute_abilities(self)
 		#
-	#for character in team2:
-		#character.execute_abilities(self)
+	for character in team2:
+		character.execute_abilities(self)
 	
 	var kill1 = team1.filter(is_dead)
 	var kill2 = team2.filter(is_dead)
