@@ -5,6 +5,7 @@ class_name Character
 enum class_options {ARCHER, KNIGHT, MAGE, BARD}
 enum state {IDLE, DEAD, ATTACKING}
 
+var cost: int
 var char_name: String
 var health: int
 var attack: int
@@ -22,7 +23,8 @@ var health_label = get_node("HealthLabel")
 @onready 
 var attack_label = get_node("AttackLabel")
 
-func initialize(char_name: String, char_class: class_options, health: int, attack: int, defense: int):
+func initialize(char_name: String, char_class: class_options, health: int, attack: int, defense: int, cost: int = 0):
+	self.cost = cost
 	self.char_name = char_name
 	self.char_class = char_class
 	self.health = health
