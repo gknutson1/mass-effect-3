@@ -15,6 +15,7 @@ var attack_target: Node2D
 var velocity: Vector2 = Vector2.ZERO
 var char_state: state
 var gravity: float = 500.0
+var abilities = []
 
 @onready 
 var health_label = get_node("HealthLabel")
@@ -27,6 +28,7 @@ func initialize(char_name: String, char_class: class_options, health: int, attac
 	self.health = health
 	self.attack = attack
 	self.defense = defense
+	self.abilities.append(ability_archer.new())
 	update_labels()
 
 func update_labels():
@@ -78,3 +80,9 @@ func deal_damage(target):
 	target_character.health -= self.attack
 	if target_character.health <= 0:
 		char_state = state.IDLE
+		
+func execute_abilities(battle: BattleManager):
+	for cAbility in abilities:
+		print("test")
+		cAbility.createTarget(battle)
+		cAbility.ExecuteAbility(battle)
