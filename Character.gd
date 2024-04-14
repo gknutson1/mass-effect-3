@@ -23,7 +23,7 @@ var health_label = get_node("HealthLabel")
 @onready 
 var attack_label = get_node("AttackLabel")
 @onready 
-var sprite = get_node("Sprite2D")
+var sprite_2d = get_node("Sprite2D")
 
 func initialize(char_name: String, char_class: class_options, health: int, attack: int, defense: int, cost: int = 0):
 	self.cost = cost
@@ -48,16 +48,16 @@ func initialize(char_name: String, char_class: class_options, health: int, attac
 		self.abilities.append(ability_archer.new())
 		
 	if char_class == class_options.ARCHER:
-		sprite.texture = load("res://characters/char_19.png")
+		sprite_2d.texture = load("res://characters/char_19.png")
 		
 	if char_class == class_options.KNIGHT:
-		sprite.texture = load("res://characters/char_07.png")
+		sprite_2d.texture = load("res://characters/char_07.png")
 		
 	if char_class == class_options.MAGE:
-		sprite.texture = load("res://characters/char_22.png")
+		sprite_2d.texture = load("res://characters/char_22.png")
 		
 	if char_class == class_options.BARD:
-		sprite.texture = load("res://characters/char_47.png")
+		sprite_2d.texture = load("res://characters/char_47.png")
 		
 	update_labels()
 	return self
@@ -112,7 +112,8 @@ func deal_damage(target):
 	if target_character.health <= 0:
 		char_state = state.IDLE
 		
-func execute_abilities(battle: BattleManager, team: int):
+func execute_abilities(battle: BattleManager, team: int,cCarcter: int):
 	for cAbility in abilities:
+		
 		cAbility.createTarget(battle,team)
-		cAbility.ExecuteAbility(battle, team)
+		cAbility.ExecuteAbility(battle, team,cCarcter)

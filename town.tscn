@@ -42,13 +42,31 @@ layout_mode = 2
 [node name="Tavern" type="Control" parent="TabContainer/Adventurers/BuildingPanel"]
 layout_mode = 2
 
+[node name="TavernPanel" type="HBoxContainer" parent="TabContainer/Adventurers/BuildingPanel/Tavern"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
 [node name="Weaponsmith" type="Control" parent="TabContainer/Adventurers/BuildingPanel"]
 visible = false
 layout_mode = 2
 
-[node name="Blacksmith" type="Control" parent="TabContainer/Adventurers/BuildingPanel"]
+[node name="WeaponPanel" type="HBoxContainer" parent="TabContainer/Adventurers/BuildingPanel/Weaponsmith"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="Armoursmith" type="Control" parent="TabContainer/Adventurers/BuildingPanel"]
 visible = false
 layout_mode = 2
+
+[node name="ArmourPanel" type="HBoxContainer" parent="TabContainer/Adventurers/BuildingPanel/Armoursmith"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
 
 [node name="Upgrades" type="Control" parent="TabContainer"]
 visible = false
