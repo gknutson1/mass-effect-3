@@ -3,6 +3,7 @@ extends Node2D  # Assuming your character extends from Node2D for position manip
 class_name Character
 
 enum class_options {ARCHER, KNIGHT, MAGE, BARD}
+enum state {IDLE, DEAD, ATTACKING}
 
 var char_name: String
 var health: int
@@ -10,11 +11,10 @@ var attack: int
 var defense: int
 var char_class: class_options
 var target_position: Vector2
-var busy: bool = false
-var velocity: Vector2 = Vector2.ZERO  # Physics property
-var dead: bool = false  # State check if dead
-var gravity: float = 500.0  # Gravity strength
-var abilities = []
+var attack_target: Node2D
+var velocity: Vector2 = Vector2.ZERO
+var char_state: state
+var gravity: float = 500.0
 
 @onready 
 var health_label = get_node("HealthLabel")
@@ -27,7 +27,6 @@ func initialize(char_name: String, char_class: class_options, health: int, attac
 	self.health = health
 	self.attack = attack
 	self.defense = defense
-	self.abilities.append(ability_archer.new())
 	update_labels()
 
 func update_labels():
@@ -41,31 +40,34 @@ func _ready():
 func _process(delta):
 	update_labels()
 	if health <= 0:
-		dead = true
-	if not dead:
-		move_to_target(delta)
-		busy_check()
-	else:
-		handle_death_physics(delta)
+		char_state = state.DEAD
+		kill()
+	if char_state == state.IDLE:
+		move_animation(delta)
+	elif char_state == state.DEAD:
+		death_animation(delta)
+	elif char_state == state.ATTACKING:
+		attack_animation(delta)		
 
-func move_to_target(delta):
+func move_animation(delta):
 	self.position = lerp(self.position, target_position, 0.2)
 
-func busy_check():
-	busy = self.position != target_position or health <= 0
-
 func kill():
-	if not dead:
-		dead = true
-		velocity = Vector2(randf_range(-100, 100), randf_range(-300, -100))  # Random initial upward velocity
+	if char_state != state.DEAD:
+		velocity = Vector2(randf_range(-10000, 10000), randf_range(-30000, -10000))  # Random initial upward velocity
 
-func handle_death_physics(delta):
+func death_animation(delta):
 	velocity.y += gravity * delta
 	position += velocity * delta
 	if position.y > get_viewport_rect().size.y + 100:  # Check if out of screen
 		queue_free()  # Remove the node from the scene
-func execute_abilities(battle: BattleManager):
-	for cAbility in abilities:
-		print("test")
-		cAbility.createTarget(battle)
-		cAbility.ExecuteAbility(battle)
+		
+func set_attack_target(target: Node2D):
+	attack_target = target
+	char_state = state.ATTACKING
+	
+func attack_animation(delta):
+	self.position = lerp(self.position, attack_target.position, 0.5)
+	if (self.position - attack_target.position).length() < 50:
+		char_state = state.IDLE
+	pass
