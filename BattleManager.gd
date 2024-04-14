@@ -123,9 +123,9 @@ func declare_winner() -> end_state:
 func assign_move_orders():
 	for i in range(team1.size()):
 		var character = team1[i] as Character
-		character.target_position = Vector2((i + 1) * -200, 100)
+		character.target_position = Vector2((i + 1) * -20, 10)
 		
 	for i in range(team2.size()):
 		var character = team2[i] as Character
-		character.target_position = Vector2((i + 1) * 200, 100)
+		character.target_position = Vector2((i + 1) * 20, 10)
 		

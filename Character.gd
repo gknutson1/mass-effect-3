@@ -23,7 +23,7 @@ var health_label = get_node("HealthLabel")
 @onready 
 var attack_label = get_node("AttackLabel")
 @onready 
-var attack_label = get_node("Sprite2D")
+var sprite = get_node("Sprite2D")
 
 func initialize(char_name: String, char_class: class_options, health: int, attack: int, defense: int, cost: int = 0):
 	self.cost = cost
@@ -46,6 +46,19 @@ func initialize(char_name: String, char_class: class_options, health: int, attac
 		self.abilities.append(ability_magic.new())
 	if(char_class == class_options.ARCHER):
 		self.abilities.append(ability_archer.new())
+		
+	if char_class == class_options.ARCHER:
+		sprite.texture = load("res://characters/char_19.png")
+		
+	if char_class == class_options.KNIGHT:
+		sprite.texture = load("res://characters/char_07.png")
+		
+	if char_class == class_options.MAGE:
+		sprite.texture = load("res://characters/char_22.png")
+		
+	if char_class == class_options.BARD:
+		sprite.texture = load("res://characters/char_47.png")
+		
 	update_labels()
 	return self
 

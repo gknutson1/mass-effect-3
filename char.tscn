@@ -1,26 +1,27 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2gdvu6vek3us"]
 
 [ext_resource type="Script" path="res://Character.gd" id="1_24uo5"]
-[ext_resource type="Texture2D" uid="uid://dx5qpn15tg871" path="res://icon.svg" id="1_wxr4k"]
+[ext_resource type="Texture2D" uid="uid://bc0rbfs2rxdub" path="res://characters/char_41.png" id="2_qeyg6"]
 
 [node name="Char" type="Node2D"]
+texture_filter = 3
 script = ExtResource("1_24uo5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_wxr4k")
+texture = ExtResource("2_qeyg6")
 
 [node name="HealthLabel" type="Label" parent="."]
-offset_left = 55.0
-offset_top = 35.0
-offset_right = 65.0
-offset_bottom = 58.0
-scale = Vector2(2, 2)
+offset_left = 3.07
+offset_top = 2.02
+offset_right = 13.07
+offset_bottom = 25.02
+scale = Vector2(0.38, 0.38)
 text = "0"
 
 [node name="AttackLabel" type="Label" parent="."]
-offset_left = -70.0
-offset_top = 35.0
-offset_right = -60.0
-offset_bottom = 58.0
-scale = Vector2(2, 2)
+offset_left = -7.175
+offset_top = 1.865
+offset_right = 2.825
+offset_bottom = 24.865
+scale = Vector2(0.375, 0.375)
 text = "0"
