@@ -9,6 +9,7 @@ var health: int
 var attack: int
 var defense: int
 var char_class: class_options
+var abilities = [archerability]
 
 @onready 
 var health_label = get_node("HealthLabel")
@@ -38,3 +39,8 @@ func _ready():
 func _process(delta):
 	update_labels()
 	pass
+
+func execute_abilities(battle: BattleManager):
+	for cAbility in abilities:
+		cAbility.createTarget(battle)
+		cAbility.ExecuteAbility(battle)
