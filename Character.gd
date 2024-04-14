@@ -30,7 +30,7 @@ func initialize(char_name: String, char_class: class_options, health: int, attac
 	self.health = health
 	self.attack = attack
 	self.defense = defense
-	self.abilities.append(ability_archer.new())
+	self.abilities.append(ability_magic.new())
 	update_labels()
 	return self
 
