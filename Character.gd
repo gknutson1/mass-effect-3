@@ -23,7 +23,7 @@ var health_label = get_node("HealthLabel")
 @onready 
 var attack_label = get_node("AttackLabel")
 @onready 
-var attack_label = get_node("Sprite2D")
+var sprite_2d = get_node("Sprite2D")
 
 func initialize(char_name: String, char_class: class_options, health: int, attack: int, defense: int, cost: int = 0):
 	self.cost = cost
