@@ -2,6 +2,7 @@ extends Control
 
 var gold = 40
 
+
 @onready
 var partyPanel: HBoxContainer = get_node("TabContainer/Adventurers/PartyPanel")
 @onready
@@ -10,7 +11,6 @@ var tavernPanel: HBoxContainer = get_node("TabContainer/Adventurers/BuildingPane
 var weaponPanel: HBoxContainer = get_node("TabContainer/Adventurers/BuildingPanel/Weaponsmith/WeaponPanel")
 @onready
 var armourPanel: HBoxContainer = get_node("TabContainer/Adventurers/BuildingPanel/Armoursmith/ArmourPanel")
-
 @onready
 var goldLabel: Label = get_node("Label")
 
@@ -35,7 +35,6 @@ var update_character_box = func(char: Character) -> String:
 		return "[center]Slot\nAvailable![/center]"
 		
 var update_tavern_box = func(char: Character) -> String:
-	#print("parsing!!!")
 	return "[center]{}\n\nclass: {}\natk: {}\nhp: {}\ndef: {}[/center]".format(
 		[char.char_name, resolve(char.char_class), char.attack, char.health, char.defense], "{}"
 	)
@@ -70,7 +69,6 @@ class selectionBox:
 		update_text()
 	
 	func update_text():
-		print(string_func.call(self.obj))
 		self.label.text = string_func.call(self.obj)
 
 var characters: Array[selectionBox] = []
@@ -87,6 +85,7 @@ var armoursize: int = 3
 var armourlevel: int = 0
 
 func writeTavern():
+	var names = ["fred", "posada", "greg", "cleo", "maverick", "jessie", "freddy", "pala", "novo"]
 	tavern_opts.clear()
 	for i in range(0, tavernsize):
 		tavern_opts.append(selectionBox.new("Purchase", tavernPanel, update_tavern_box, false))
@@ -98,7 +97,7 @@ func writeTavern():
 		var hp = randi() % 21 + 10
 		randomize()
 		var cost = randi() % 21 + 10
-		var chr = Character.new().initialize("sdf", Character.class_options[Character.class_options.keys()[randi() % Character.class_options.size()]], hp, atk, def, cost)
+		var chr = Character.new().initialize(names[i], Character.class_options[Character.class_options.keys()[randi() % Character.class_options.size()]], hp, atk, def, cost)
 		tavern_opts[i].update_object(chr)
 	writeTavernGold()
 		
@@ -112,12 +111,15 @@ func purchaseChr(box: selectionBox):
 	gold = gold - box.obj.cost
 	goldLabel.text = "Gold: " + str(gold)
 	for i in tavern_opts:
-		i.button.disabled = i.obj.cost >= gold
+		i.button.disabled = i.obj == null || i.obj.cost >= gold
 	for i in characters:
 		i.button.disabled = false
+		if i.button.pressed.is_connected(replaceChr):
+			i.button.pressed.disconnect(replaceChr)
 		i.button.pressed.connect(replaceChr.bind(box, i))
 		
 func replaceChr(new: selectionBox, old: selectionBox):
+	print(new.label.text + "\n|\n\\/\n" + old.label.text)
 	old.update_object(new.obj)
 	new.obj = null 
 	new.button.text = "Purchased!"
