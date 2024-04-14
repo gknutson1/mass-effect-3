@@ -68,8 +68,11 @@ func fight_round():
 	var attacker1 = team1[0] as Character
 	var attacker2 = team2[0] as Character
 	
-	attacker1.set_attack_target(team2[0])
-	attacker2.set_attack_target(team1[0])
+	if attacker2.health > 0:
+		attacker1.set_attack_target(team2[0])
+	
+	if attacker1.health > 0:
+		attacker2.set_attack_target(team1[0])
 	
 	#NOTE: We will have to repeat. Character abilities may trigger character abilities. Can't loop once.
 	for character in team1:
