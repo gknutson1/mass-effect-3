@@ -75,11 +75,11 @@ func fight_round():
 		attacker2.set_attack_target(team1[0])
 	
 	#NOTE: We will have to repeat. Character abilities may trigger character abilities. Can't loop once.
-	for character in team1:
-		character.execute_abilities(self,2)
+	for i in range(0,team1.size()):
+		team1[i].execute_abilities(self,2,i)
 		##
-	for character in team2:
-		character.execute_abilities(self,1)
+	for i in range(0,team2.size()):
+		team2[i].execute_abilities(self,2,i)
 	
 	var kill1 = team1.filter(is_dead)
 	var kill2 = team2.filter(is_dead)
