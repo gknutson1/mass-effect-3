@@ -42,6 +42,10 @@ func initialize(char_name: String, char_class: class_options, health: int, attac
 	#char46 is bear
 	#char44 is tiger
 	#char35 
+	if(char_class == class_options.MAGE):
+		self.abilities.append(ability_magic.new())
+	if(char_class == class_options.ARCHER):
+		self.abilities.append(ability_archer.new())
 	update_labels()
 	return self
 
@@ -95,8 +99,7 @@ func deal_damage(target):
 	if target_character.health <= 0:
 		char_state = state.IDLE
 		
-func execute_abilities(battle: BattleManager):
+func execute_abilities(battle: BattleManager, team: int):
 	for cAbility in abilities:
-		print("test")
-		cAbility.createTarget(battle)
-		cAbility.ExecuteAbility(battle)
+		cAbility.createTarget(battle,team)
+		cAbility.ExecuteAbility(battle, team)
