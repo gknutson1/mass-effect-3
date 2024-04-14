@@ -87,7 +87,8 @@ func deal_damage(target):
 	if target_character.health <= 0:
 		char_state = state.IDLE
 		
-func execute_abilities(battle: BattleManager, team: int):
+func execute_abilities(battle: BattleManager, team: int,cCarcter: int):
 	for cAbility in abilities:
+		
 		cAbility.createTarget(battle,team)
-		cAbility.ExecuteAbility(battle, team)
+		cAbility.ExecuteAbility(battle, team,cCarcter)
