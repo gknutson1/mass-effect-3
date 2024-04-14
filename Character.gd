@@ -30,7 +30,10 @@ func initialize(char_name: String, char_class: class_options, health: int, attac
 	self.health = health
 	self.attack = attack
 	self.defense = defense
-	self.abilities.append(ability_magic.new())
+	if(char_class == class_options.MAGE):
+		self.abilities.append(ability_magic.new())
+	if(char_class == class_options.ARCHER):
+		self.abilities.append(ability_archer.new())
 	update_labels()
 	return self
 
@@ -86,6 +89,5 @@ func deal_damage(target):
 		
 func execute_abilities(battle: BattleManager, team: int):
 	for cAbility in abilities:
-		print("test")
 		cAbility.createTarget(battle,team)
 		cAbility.ExecuteAbility(battle, team)

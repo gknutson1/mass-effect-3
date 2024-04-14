@@ -12,6 +12,7 @@ func createTarget(battle: BattleManager,team: int):
 	if(team == 2):
 		randomTarget = rng.randf_range(0, battle.team2.size())
 func ExecuteAbility(battle: BattleManager,team: int):
+	print("archer attack" + str(team))
 	if(team == 1):
 		battle.team1[randomTarget].health -= 1
 	if(team == 2):

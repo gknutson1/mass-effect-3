@@ -7,6 +7,7 @@ func initialize():
 func createTarget(battle: BattleManager,team: int):
 	pass
 func ExecuteAbility(battle: BattleManager,team: int):
+	print("magic attack" + str(team))
 	if(team == 1):
 		for enemies in battle.team1:
 			enemies.health -=damage
