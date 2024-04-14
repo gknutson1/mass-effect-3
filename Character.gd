@@ -30,6 +30,7 @@ func initialize(char_name: String, char_class: class_options, health: int, attac
 	self.defense = defense
 	self.abilities.append(ability_archer.new())
 	update_labels()
+	return self
 
 func update_labels():
 	if is_inside_tree():
